@@ -1,0 +1,32 @@
+# HW 1-19-1
+----
+TR	[25.45, 27.80]
+O	[35.59, 48.2]
+----
+# P	p							# power (for logging purposes)
+# Z	z							# z position
+# LOC	[x, y]							# local origin
+# L	[x1, y1]	[x2, y2]	speed			# single line
+# PLH	[x1, y1]	[x2, y2]	gap	speed		# horizontal parallel lines
+# PLV	[x1, y1]	[x2, y2]	gap	speed		# vertical parallel lines
+# C	[x_c, y_c]	r	speed				# circle
+# WH	gap	speed						# horizontal wipe
+# WV	gap	speed						# vertical wipe
+----
+# DRAW THESE, BUT DON'T WRITE THEM (i.e., previous commands, to be shown in green)
+
+
+
+%%%
+----
+# DRAW THESE, THEN WRITE THEM IF CONFIRMED (to be shown in orange)
+
+P	120
+Z	144.0
+L	[2.0, 14.0]	[6.0, 15.0]	4
+L	[2.0, 15.0]	[6.0, 12.0]	4
+P	8
+PLV	[4.0, 4.0]	[8.0, 8.0]	0.3	1
+LOC	[1.0, 2.0]
+C	[1.0, 1.0]	0.5	5
+

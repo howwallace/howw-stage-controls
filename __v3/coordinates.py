@@ -1,0 +1,133 @@
+
+import math
+
+""" V FOR VECTOR """
+class V2(object):
+
+    def __init__(self):
+        self.x = 0
+        self.y = 0
+    
+    # arg can be of type V, P, or float-tuple (degree-measure of point on unit-circle)
+    """
+    non-polar:  arg[0] = x;  arg[1] = y
+    polar:      arg[0] = r;  arg[1] = theta (deg)
+    """
+    def __init__(self, arg, polar = False):
+        if type(arg) is V2 or type(arg) is V3:
+            self.x = arg.x
+            self.y = arg.y
+        elif type(arg) is tuple:
+            if not polar:
+                self.x = arg[0]
+                self.y = arg[1]
+            else:
+                V2.__init__(self, V2(arg[1]) * arg[0])
+        elif type(arg) is float or type(arg) is int:
+            self.x = math.cos(math.radians(arg))
+            self.y = math.sin(math.radians(arg))
+        elif type(arg) is str:      # in format "(x, y)")
+            x_str, y_str = arg.split(",")
+            self.x = float(x_str[1:])
+            self.y = float(y_str[:-1])
+        else:
+            self.x = 0
+            self.y = 0
+    
+    @property
+    def magnitude(self):
+        return ((self.x**2 + self.y**2)**0.5)
+
+    @property
+    def unit(self):
+        if self.magnitude == 0:
+            return V2((0, 0))
+        return self / self.magnitude
+
+    @property
+    def perpendicular_clk(self):
+        return V2((self.y, -self.x))
+
+    def perpendicular_cntclk(self):
+        return V2((-self.y, self.x))
+
+    def asV2(self):
+        return V2((self.x, self.y))
+
+    # where pt is of type V2 or V3
+    def setXY(self, pt):
+        self.x = pt.x
+        self.y = pt.y
+
+    def round(self):
+        return V2((int(self.x), int(self.y)))
+
+    def __add__(self, other):
+        return V2((self.x + other.x, self.y + other.y))
+            
+    def __sub__(self, other):
+        return V2((self.x - other.x, self.y - other.y))
+
+    def __mul__(self, scalar):
+        return V2((scalar * self.x, scalar * self.y))
+    
+    def __truediv__(self, inv_scalar):
+        return V2((self.x / inv_scalar, self.y / inv_scalar))
+
+    def __abs__(self):
+        return V2((abs(self.x), abs(self.y)))
+
+    def __str__(self):
+        return "V2({0:.4f}, {1:.4f})".format(self.x, self.y)
+
+
+""" 3D Vector """
+class V3(V2):
+    
+    def __init__(self):
+        self.x = 0
+        self.y = 0
+        self.z = 0
+    
+    # val can be of type V, P, or float (degree-measure of point on unit-circle)
+    """
+    non-polar:  args[0] = x;  args[1] = y
+    polar:      args[0] = r;  args[1] = theta (deg)
+    """
+    
+    def __init__(self, arg, polar = False):
+        if type(arg) is V2:
+            self.x = arg.x
+            self.y = arg.y
+            self.z = None
+        elif type(arg) is tuple:
+            if not polar:
+                self.x = arg[0]
+                self.y = arg[1]
+            else:
+                V2.__init__(self, V(arg[1]) * arg[0])
+
+            if len(arg) == 3:
+                self.z = arg[2]
+            else:
+                self.z = None
+        elif type(arg) is float:
+            V2.__init__(self, math.cos(math.radians(arg)), math.sin(math.radians(arg)))
+            self.z = None
+        else:
+            V2.__init__(self)
+            
+    """
+        make the point represent a gap, which means it must have a negative y-coordinate
+        def cast_to_gap(self):
+        self.y = -math.fabs(self.y)
+        """
+    
+    def __add__(self, other):
+        return V3((self.x + other.x,
+                   self.y + other.y,
+                   None if (self.z is None or other.z is None) else self.z + other.z))
+    
+    def __str__(self):
+        return "V3({0:.4f}, {1:.4f}, {2:.4f})".format(self.x, self.y, self.z)
+

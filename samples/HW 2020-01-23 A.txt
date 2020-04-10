@@ -1,0 +1,35 @@
+# HW 2020-01-23 A
+
+GLOBAL_O = V2((35.6, 39.0260))
+TR = V2((21.6566, 25.0))
+
+# REFERENCE
+# write_parallel_lines_gap(z, start, end, gap, speed, num_lines)
+# write_parallel_lines_vertical_continuous(z, start, end, gap, speed)
+# write_parallel_lines_horizontal_continuous(z, start, end, gap, speed)
+# write_parallel_lines_vertical_region_tall(z, speeds, gap, inter_speed_gap_factor = 0.2)
+# write_parallel_lines_horizontal_region_wide(z, speeds, gap, inter_speed_gap_factor = 0.2)
+# write_parallel_lines_horizontal_const_height(z, x_width, speeds, gap, inter_speed_gap_factor = 0.2)
+# write_parallel_lines_delta_s(z, start, end, gap, speed, delta_speed, num_lines_per_speed, num_speeds)
+# write_line(start, end, speed)
+# write_circle(center, radius, speed)
+# write_part_circle(center, radius, start_deg, end_deg, speed)
+# outline_region(z, speed = None)
+# wipe_region(z, speed = None)
+# move_to(point, ground_speed = None, laser_on = False)
+# home_all()
+
+
+## PREVIOUSLY WRITTEN
+
+
+LOCAL_O = V2((6.2, 0.5))
+
+
+
+
+write_parallel_angled_lines(V2((1,1)), 2, 0, 0.3, 4, 10)
+
+
+## NEW COMMANDS
+
