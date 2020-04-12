@@ -1,14 +1,18 @@
-# HW 2020-01-23 A
+# SAMPLE NAME
 
-GLOBAL_O = V2((35.6, 39.0260))		# ORIGIN = BOTTOM LEFT
-TR = V2((21.6566, 25.0))		# TOP RIGHT
+GLOBAL_O = V2((__, __))		# ORIGIN = BOTTOM LEFT
+TR = V2((__, __))		# TOP RIGHT
 
 
 ## PREVIOUSLY WRITTEN
 
 
 
+
 ## NEW COMMANDS
+
+LOCAL_O = V2((__, __))		# move writing region without redefining global origins
+
 
 
 

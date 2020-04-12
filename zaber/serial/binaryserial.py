@@ -7,6 +7,18 @@ DATE:		9 Apr 2020
 
 DESCRIPTION:
 Class used to manage USB connection and data communication to devices.
+
+I've modified this and other files to allow commands to be sent to a
+device without waiting for a response that the command has succeeded.
+Ordinarily, waiting for this kind of a response is helpful because it
+can delay sending subsequent commands for the appropriate amount of
+time, without requiring that that time be calculated. Because we're
+using multiple devices, though, this means that if I send a command to
+device X, then I can't also send a command to Y until X is finished;
+this interferes with our ability to make simultaneous moves, so I've
+made it so that you can send select commands without awaiting reply by
+setting a parameter ("await_reply = False") in the call to that command,
+e.g., x_axis.move_abs({20mm}, await_reply = False).
 """
 
 

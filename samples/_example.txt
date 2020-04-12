@@ -1,0 +1,94 @@
+# _example
+
+GLOBAL_O = V2((35.6, 39.0260))		# ORIGIN = BOTTOM LEFT
+TR = V2((21.6566, 25.0))		# TOP RIGHT
+
+
+## PREVIOUSLY WRITTEN
+
+# 2020-04-11 15:46:45
+LOCAL_O = V2((0, 0))
+LOCAL_O = V2((0.5,0.5))
+write_parallel_lines_vertical_region_tall(145.0, [1,2,3,4], 0.2, inter_speed_gap_factor = 0.4)		# [1]
+LOCAL_O = V2((4.0,0.5))
+write_parallel_lines_horizontal_region_wide(145.0, [1,2,3,4], 0.2, inter_speed_gap_factor = 0.4)		# [2]
+LOCAL_O = V2((3.0,3.0))
+write_parallel_lines_vertical_continuous(145.0, V2((0,0)), V2((2.3,1.3)), 0.2, 5)		# [3]
+move_to(V2((2.5,0)))		# [4]
+move_to(V2((2.5,1.5)))		# [5]
+move_to(V2((0,1.5)))		# [6]
+LOCAL_O = V2((3.0,5.0))
+write_parallel_lines_horizontal_continuous(145.0, V2((0,0)), V2((2.3,1.3)), 0.2, 5)		# [7]
+LOCAL_O = V2((3.0,7.0))
+write_parallel_lines_horizontal_const_height(145.0, 2.0, [1,2,3,4,5], 0.3, inter_speed_gap_factor = 0.8)		# [8]
+LOCAL_O = V2((3.0,11.5))
+write_parallel_lines_delta_s(145.0, V2((0.0,0.3)), V2((1,0)), -0.2, 1, 1, 3, 3)		# [9]
+LOCAL_O = V2((6.0,13.0))
+write_line(V2((0,0)), V2((2,0)), 1)		# [10]
+LOCAL_O = V2((8.0,10.0))
+move_to(V2((2.2,2)))		# [11]
+move_to(V2((2.2,0)))		# [12]
+write_circle(V2((0,0)), 0.2, 2)		# [13]
+write_circle(V2((0,0)), 0.8, 2)		# [14]
+write_circle(V2((0,0)), 1.4, 2)		# [15]
+write_circle(V2((0,0)), 2, 2)		# [16]
+move_to(V2((2.2,0)))		# [17]
+LOCAL_O = V2((8.0,5.0))
+move_to(V2((2.2,0)))		# [18]
+write_part_circle(V2((0,0)), 2, 0, 90, 2)		# [19]
+move_to(V2((0,2.2)))		# [20]
+move_to(V2((2.2,2.2)))		# [21]
+move_to(V2((2.2,-0.5)))		# [22]
+write_part_circle(V2((0,-0.5)), 2, 0, 90, 2)		# [23]
+move_to(V2((0,2.2)))		# [24]
+move_to(V2((2.2,2.2)))		# [25]
+move_to(V2((2.2,-1)))		# [26]
+write_part_circle(V2((0,-1)), 2, 0, 90, 2)		# [27]
+move_to(V2((0,2.2)))		# [28]
+move_to(V2((2.2,2.2)))		# [29]
+move_to(V2((2.2,-1.5)))		# [30]
+write_part_circle(V2((0,-1.5)), 2, 0, 90, 2)		# [31]
+move_to(V2((0,2.2)))		# [32]
+move_to(V2((2.2,2.2)))		# [33]
+move_to(V2((2.2,-2)))		# [34]
+write_part_circle(V2((0,-2)), 2, 0, 90, 2)		# [35]
+move_to(V2((0,2.2)))		# [36]
+move_to(V2((2.2,2.2)))		# [37]
+move_to(V2((2.2,-2.5)))		# [38]
+write_part_circle(V2((0,-2.5)), 2, 0, 90, 2)		# [39]
+
+# 2020-04-11 21:35:36
+LOCAL_O = V2((0, 0))
+
+# 2020-04-11 21:50:04
+LOCAL_O = V2((0, 0))
+
+# 2020-04-12 13:01:32
+LOCAL_O = V2((0, 0))
+
+
+
+
+## NEW COMMANDS
+
+
+
+
+
+## REFERENCE
+# “start”, “end”, and “center” must be defined as V2 objects, e.g., V2((0.5, 0.5))
+
+# write_parallel_lines_gap(z, start, end, gap, speed, num_lines)
+# write_parallel_lines_vertical_continuous(z, start, end, gap, speed)
+# write_parallel_lines_horizontal_continuous(z, start, end, gap, speed)
+# write_parallel_lines_vertical_region_tall(z, speeds, gap, inter_speed_gap_factor = 0.2)
+# write_parallel_lines_horizontal_region_wide(z, speeds, gap, inter_speed_gap_factor = 0.2)
+# write_parallel_lines_horizontal_const_height(z, x_width, speeds, gap, inter_speed_gap_factor = 0.2)
+# write_parallel_lines_delta_s(z, start, end, gap, speed, delta_speed, num_lines_per_speed, num_speeds)
+# write_line(start, end, speed)
+# write_circle(center, radius, speed)
+# write_part_circle(center, radius, start_deg, end_deg, speed)		# NEED TO CONFIRM ANGULAR WRITE DIRECTION
+# outline_region(z, speed = None)
+# wipe_region(z, gap = 0.08, speed = None)
+# move_to(point, ground_speed = None, laser_on = False)			# will always render with laser_on = False
+# home_all()

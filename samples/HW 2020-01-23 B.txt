@@ -1,14 +1,17 @@
-# HW 2020-01-23 A
+# HW 2020-01-23 B
 
-GLOBAL_O = V2((35.6, 39.0260))		# ORIGIN = BOTTOM LEFT
-TR = V2((21.6566, 25.0))		# TOP RIGHT
+GLOBAL_O = V2((35.9, 35.3))         	# ORIGIN = BOTTOM LEFT
+TR = V2((22.0, 21.0))               	# TOP RIGHT
 
 
 ## PREVIOUSLY WRITTEN
 
 
 
+
 ## NEW COMMANDS
+
+
 
 
 

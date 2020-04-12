@@ -5,7 +5,13 @@ AUTHOR:		Harper O. W. Wallace
 DATE:		9 Apr 2020
 
 DESCRIPTION:
-Class used to manage Cartesian coordinate system for stage positions.
+Used to manage a Cartesian coordinate system for stage positions. Vector
+(V2) positions can be defined in polar or non-polar coordintes, as
+detailed above __init__ below. Vectors can be added, subtracted, and
+multiplied by scalars (note that scalar multiplication must be done as
+V2 * k, not k * V2). V2 callable properties include magnitude, unit
+(returns the object's unit vector, if it has one), and perpendicular
+(_clk = clockwise; _cntclk = counterclockwise).
 """
 
 
@@ -18,13 +24,14 @@ class V2(object):
         self.x = 0
         self.y = 0
     
-    # arg can be of type V, P, or float-tuple (degree-measure of point on unit-circle)
-    """
-    non-polar:  arg[0] = x;  arg[1] = y
-    polar:      arg[0] = r;  arg[1] = theta (deg)
-    """
+    # arg can be type:
+    #	V2 -> returns new V2 with same coordinates
+    #	tuple of ints/floats:
+    #	    if polar, then	arg[0] = r and arg[1] = theta (deg)
+    #	    if nonpolar, then	arg[0] = x and arg[1] = y
+    #	int/float -> returns a unit vector with theta (deg) = arg
     def __init__(self, arg, polar = False):
-        if type(arg) is V2 or type(arg) is V3:
+        if type(arg) is V2:
             self.x = arg.x
             self.y = arg.y
         elif type(arg) is tuple:
@@ -48,23 +55,29 @@ class V2(object):
     def magnitude(self):
         return ((self.x**2 + self.y**2)**0.5)
 
+    # returns self's unit vector
     @property
     def unit(self):
         if self.magnitude == 0:
             return V2((0, 0))
         return self / self.magnitude
 
+    # returns a vector perpendicular to and of the same magnitude as
+    # self, by clockwise rotation
     @property
     def perpendicular_clk(self):
         return V2((self.y, -self.x))
 
+    # returns a vector perpendicular to and of the same magnitude as
+    # self, by counterclockwise rotation
+    @property
     def perpendicular_cntclk(self):
         return V2((-self.y, self.x))
 
     def asV2(self):
         return V2((self.x, self.y))
 
-    # where pt is of type V2 or V3
+    # sets the coordinates of self to match those of pt (V2)
     def setXY(self, pt):
         self.x = pt.x
         self.y = pt.y
@@ -91,53 +104,4 @@ class V2(object):
         return "V2({0:.4f}, {1:.4f})".format(self.x, self.y)
 
 
-""" 3D Vector """
-class V3(V2):
-    
-    def __init__(self):
-        self.x = 0
-        self.y = 0
-        self.z = 0
-    
-    # val can be of type V, P, or float (degree-measure of point on unit-circle)
-    """
-    non-polar:  args[0] = x;  args[1] = y
-    polar:      args[0] = r;  args[1] = theta (deg)
-    """
-    
-    def __init__(self, arg, polar = False):
-        if type(arg) is V2:
-            self.x = arg.x
-            self.y = arg.y
-            self.z = None
-        elif type(arg) is tuple:
-            if not polar:
-                self.x = arg[0]
-                self.y = arg[1]
-            else:
-                V2.__init__(self, V(arg[1]) * arg[0])
-
-            if len(arg) == 3:
-                self.z = arg[2]
-            else:
-                self.z = None
-        elif type(arg) is float:
-            V2.__init__(self, math.cos(math.radians(arg)), math.sin(math.radians(arg)))
-            self.z = None
-        else:
-            V2.__init__(self)
-            
-    """
-        make the point represent a gap, which means it must have a negative y-coordinate
-        def cast_to_gap(self):
-        self.y = -math.fabs(self.y)
-        """
-    
-    def __add__(self, other):
-        return V3((self.x + other.x,
-                   self.y + other.y,
-                   None if (self.z is None or other.z is None) else self.z + other.z))
-    
-    def __str__(self):
-        return "V3({0:.4f}, {1:.4f}, {2:.4f})".format(self.x, self.y, self.z)
-
+# V3 removed

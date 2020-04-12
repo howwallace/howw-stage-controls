@@ -51,7 +51,7 @@ class BinaryReply(object):
                 binary (ascii) string.
         """
         if isinstance(reply, bytes):
-            """ ORIGINAL SCRIPT FROM ZABER: """
+            """ ORIGINAL LINE FROM ZABER: """
             #self.device_number, self.command_number, self.data = struct.unpack("<2Bl", reply)
 
             """ MODIFICATION BECAUSE IT LOOKS LIKE command_number COMES LAST: """

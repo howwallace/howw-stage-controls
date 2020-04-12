@@ -12,7 +12,6 @@ Object used to pass commands to Zaber stages.
 
 import logging
 import struct
-from enum import IntEnum
 
 # See https://docs.python.org/2/howto/logging.html#configuring-logging-
 # for-a-library for info on why we have these two lines here.
@@ -91,23 +90,3 @@ class BinaryCommand(object):
                                            self.data,
                                            self.message_id)
 
-
-class CommandType(IntEnum):
-    Home = 1
-    MoveAbs = 20
-    MoveRel = 21
-    MoveVel = 22
-    Stop = 23
-    SetHomeSpeed = 41
-    SetTargetSpeed = 42
-    SetAccel = 43
-    SetMinPos = 106
-    SetMaxPos = 44
-    SetMode = 40
-    GetSetting = 53
-    GetStatus = 54
-    GetPos = 60
-    
-    
-    
-    
