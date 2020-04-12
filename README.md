@@ -85,5 +85,5 @@ They sort of spazzed out there, for a while. If you are interested in aligning i
 
 
 #### REFERENCE:
-[1] https://www.zaber.com/protocol-manual?protocol=Binary
+[1] https://www.zaber.com/protocol-manual?protocol=Binary  
 [2] https://www.zaber.com/support/docs/api/core-python/0.9/binary.html#binary-module
