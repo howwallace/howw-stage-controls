@@ -1,9 +1,9 @@
 # howw-stage-controls
 
-AUTHOR:		Harper O. W. Wallace
+AUTHOR:		Harper O. W. Wallace  
 DATE:		12 Apr 2020
 
-####DESCRIPTION OF STAGES SETUP:
+#### DESCRIPTION OF STAGES SETUP:
 
 This library executes move commands for Zaber Technologies rotary (1 x X-RSW60A) and linear (2 x T-LSM050A) stages, all using binary encoding, and it supervises voltage and current control of Keithley 2400 SourceMeter to open and close a Thorlabs SH05 beam shutter.
 
@@ -15,11 +15,11 @@ The upper stage's platform has a range of motion such that the laser beam emitte
 
 ___
 
-####execute_commands.py:
+#### execute_commands.py:
 
 Parametrized move commands allow the user to write a single line, write parallel lines, write part of a circle, write a full circle, wipe a region, outline a region, and home all stages merely by specifying relevant parameters (e.g., circle center, radius, and write speed); many of these write functions are parametrized in several different ways in order to simplify writing slight variations on the same type of pattern (e.g., horizontal lines that span the entire sample region, v. vertical lines that span a specified sub-region, v. diagonal lines that are separated by a specified perpendicular distance). These commands and their arguments are detailed in execute_commands.py.
 
-####coordinates.py:
+#### coordinates.py:
 
 A Cartesian coordinate system keeps track of sample boundaries and write command positions within them. This system confers particular advantages in allowing the user to keep track of previously-written and new patterns in a systematic way, and also in conserving area on sample films in order to maximize their usefulness between wipes.
 
@@ -37,7 +37,7 @@ Units are millimeters, but neither class of Zaber stages uses this unit explicit
 This coordinate system will be more useful if it is specified for EACH film sample. To facilitate maintaining these boundary positions for different samples, I have designed (and installed, in our setup in Ebaugh Labs at Denison University) a 3D-printable 1-inch glass microscope slide holder that can be mounted to the Zaber T-LSM050A stage so that this coordinate system is approximately (~0.01mm) conserved on removal and replacement of the sample (cf. slide_holder.stl). Values for GLOBAL_O and TR should be stored in sample-specific .txt files (cf. samples/_example.txt), which are read by execute_commands.py 
 
 
-####mapping_handler.py
+#### mapping_handler.py
 
 A new and experimental feature of this library is move mapping, which theoretically allows the user to simulate how write commands will turn out in order to correct any errors before running them on a sample; as a sort of extension of the coordinate system itself, this feature too is meant to help conserve space on the film and maximize usefulness between writes. Move mapping will be particularly advantageous for writing multi-step patterns that will be necessary to generate complex diffraction gratings for Fourier projection and holographic images. As I explain in more detail in the header of mapping_handler.py, rendering hasn't been rigorously tested yet; but it verifying predicted paths for different commands should be straightforward, and a procedure is outlined in the header of mapping_handler.py.
 
@@ -53,7 +53,7 @@ Limitations of mapping_handler.py:
 
 ___
 
-####EXTREMELY IMPORTANT NOTES:
+#### EXTREMELY IMPORTANT NOTES:
 1. **DO NOT LET THE OBJECTIVE LENS HIT THE SAMPLE HOLDER SCREWS:**
 Although it is possible to programmatically set a minimum height for the rotary stage to alleviate concerns like this, unfortunately the screws are sufficiently elevated above the sample that the focal distance would probably be too large to write at modest power, if you were to try that (rather than doing it that way, I have set the minimum position such that the aluminum jacket for the objective lens will not collide with the screws, so that the linear stages should not be damaged in a collision). Therefore it is EXTREMELY IMPORTANT that you move the stages such that the objective lens is someplace within the sample region, THEN lower the objective lens to the correct focal distance. This is done automatically in the parametrized move commands defined below, but if you define any more, or if you call move_to(...), then you must consider stage height.
 
@@ -71,7 +71,7 @@ I strongly recommend playing around with sending commands and interrupting them 
 They sort of spazzed out there, for a while. If you are interested in aligning in a strong B field, then make sure that you have the magnet array sufficiently far away from the stages (e.g., mounted above, with a several-inch spacer).
 
 
-####TROUBLESHOOTING:
+#### TROUBLESHOOTING:
 - In Zaber Console, if pressing the "Stop" button does not update a stage's current position, it's probably because disable_auto_reply (used in binarydevice.py to selectively silence/allow responses) is still on. Still in Console, click on the device, then Settings, and reset "Device Mode" such that bit 0 = 0 (i.e., round down to the nearest even number).
 - ModuleNotFoundError probably means that it has not been installed. Instructions for installing pip: https://pip.pypa.io/en/stable/installing/. Once it's installed, call: [sudo] pip install [the name of the module].
 - You must multiple V2 objects by integers, rather than integers by V2 objects (cf. note in coordinates.py).
@@ -79,11 +79,11 @@ They sort of spazzed out there, for a while. If you are interested in aligning i
 - If a serial connection cannot be made to the stages, make sure you've plugged in the USB to the port specified in execute_commands.py (define_operating_constants), or change the specified port to match where it's actually plugged in.
 
 
-####NOTES ON VERSION HISTORY
+#### NOTES ON VERSION HISTORY
 - Older versions of these Python libraries are available in this repo, but unfortunately they weren't saved as meaningful commits (i.e., I didn't use GitHub) but rather as ~random snapshots from when I got nervous about not having multiple copies. You may find it helpful to consult these versions to resolve issues, but note that I can't guarantee that the older versions were saved in fully functional states (e.g., maybe I was in the middle of adding new functionality when I saved them, I just can't remember, and now I can't test them).
 - Control over Zaber stages alone is possible using old C# scripts (also available in this repo) that work with Zaber Console. Those files obviously have very different syntax, but more importantly they interact with Zaber stages quite differently; they may still be useful, though.
 
 
-####REFERENCE:
+#### REFERENCE:
 [1] https://www.zaber.com/protocol-manual?protocol=Binary
 [2] https://www.zaber.com/support/docs/api/core-python/0.9/binary.html#binary-module
