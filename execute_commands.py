@@ -87,7 +87,7 @@ MOVE_MAPPING = True
 #   keep a record of the writes you've made to this sample.
 
 SAMPLES_PATH = "/Users/harperwallace/Dropbox/GitHub/howw-stage-controls/samples/"
-SAMPLE_NAME = "_example"
+SAMPLE_NAME = "_waveguide"
 #SAMPLE_NAME = "HW 2020-01-23 A"
 #SAMPLE_NAME = "HW 2020-01-23 B"
 #SAMPLE_NAME = "HW_1_19_1"
@@ -117,7 +117,7 @@ def main():
 
         elif MOVE_MAPPING:
 
-            mh = MappingHandler(SAMPLES_PATH, SAMPLE_NAME, CONNECT_KEITHLEY, DEFAULT_HOME_SPEED)
+            mh = MappingHandler(SAMPLES_PATH, SAMPLE_NAME, (CONNECT_KEITHLEY if not DUMMY_CONNECTIONS else False), DEFAULT_HOME_SPEED)
             mh.draw_map()
 
             if mh.continue_to_run:

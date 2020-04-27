@@ -86,7 +86,7 @@ class MappingHandler(object):
             log_file = open(self.path_prefix + self.sample_name + ".txt", "r")
             
             for line in log_file.readlines():
-                
+
                 if len(line.rstrip()) > 0 and line[0] != "#":
 
                     step_time = 0
@@ -320,9 +320,9 @@ class MappingHandler(object):
                             ax.add_patch(Arc((center.x, center.y), 2*radius, 2*radius, 0, start_deg, end_deg, fill=None, alpha=1, color=color, linewidth=1.5))
                            
                             if in_new_cmds:
-                                step_time += self.render_move_to_start(ax, start) + 2*np.pi*(start_deg - end_deg)*radius / (360*speed)
+                                step_time += self.render_move_to_start(ax, start) + 2*np.pi*(end_deg - start_deg)*radius / (360*speed)
                                 self.new_cmds_array.append((cmd, center, radius, start_deg, end_deg, speed))
-                                
+
                             self.curr_pos.setXY(center + V2(end_deg)*radius)
 
 
@@ -366,7 +366,7 @@ class MappingHandler(object):
 
                                 ax.annotate(curr_command, xy=(self.curr_pos.x, self.curr_pos.y))
                                 step_time += self.render_move_to_start(ax, point, speed)
-                                self.new_cmds_array.append((cmd, args[0], gap, speed))
+                                self.new_cmds_array.append((cmd, point, speed))
 
                         
                         if in_new_cmds:
@@ -432,7 +432,7 @@ class MappingHandler(object):
         return t + (end - start.asV2()).magnitude / speed
 
     def render_move_to_start(self, ax, start, speed = None):
-
+        
         if speed == None:
             speed = self.default_speed
         
