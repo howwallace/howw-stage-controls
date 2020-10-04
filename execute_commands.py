@@ -56,7 +56,7 @@ if not MAC_TESTING:
 
 if not DUMMY_CONNECTIONS:
     import keithley_handler as kc
-    from zaber.serial import BinarySerial, BinaryDevice, BinaryCommand, CommandType
+    from zaber.serial import BinarySerial, BinaryDevice, BinaryCommand #, CommandType
 
 
 # POSITION_GETTER_MODE
@@ -104,7 +104,7 @@ def main():
 
         # Be sure to call setup_stages() before moving/setting objective height
         # Note that there's some give in the rotation of the pin through
-	#   the microscope coarse control
+	    # the microscope coarse control
         setup_stages()
 
         if POSITION_GETTER_MODE:
@@ -121,7 +121,7 @@ def main():
             mh.draw_map()
 
             if mh.continue_to_run:
-                write_mapped_commands(mh.new_cmds_array)
+                write_mapped_commands(mh)
                 mh.update_sample_history()
 
         else:
@@ -201,11 +201,16 @@ def main():
 #   account; the position arguments passed to these commands are already
 #   adjusted appropriately, so there is no need to adjust that value
 #   between writes in this method.
-def write_mapped_commands(cmds):
-    
-    LOCAL_O = V2((0,0))
+def write_mapped_commands(mh):
 
-    for cmd_args in cmds:
+    global GLOBAL_O, TR, REGION_SIZE, LOCAL_O
+    
+    LOCAL_O = V2((0, 0))
+    GLOBAL_O = mh.GLOBAL_O
+    TR = mh.TR
+    REGION_SIZE = GLOBAL_O - TR
+
+    for cmd_args in mh.new_cmds_array:
         if cmd_args[0] == "write_parallel_lines_vertical_continuous":
             write_parallel_lines_vertical_continuous(*cmd_args[1:])
         elif cmd_args[0] == "write_parallel_lines_horizontal_continuous":
@@ -232,7 +237,8 @@ def write_mapped_commands(cmds):
             wipe_region(*cmd_args[1:])
         elif cmd_args[0] == "move_to":
             move_to(*cmd_args[1:])
-            
+        # changes to LOCAL_O should be reflected in absolute shifts in the start/end arguments, as recorded in mapping_handler.py
+
 
 # WRITE PARALLEL LINES: VERTICAL, CONTINUOUS
 # Writes vertical parallel lines in an egyptian pattern: |-|_|-|_|
@@ -592,7 +598,7 @@ def write_part_circle(center, radius, start_deg, end_deg, speed):
 [point] = V2, in mm
 [ground_speed] = mm/s; if value == None, => DEFAULT_HOMING_SPEED
 """
-def move_to(point, ground_speed = None, laser_on = False):
+def move_to(point, ground_speed = None, laser_on = False, is_local = True):
 
     if DUMMY_CONNECTIONS:
         return
@@ -607,7 +613,7 @@ def move_to(point, ground_speed = None, laser_on = False):
 
 
     # point data as a position (i.e., given invert, FsOR)
-    global_point = local2globalmm(point)
+    global_point = local2globalmm(point) if is_local else point
     global_point_data = mm2lindata(global_point)
 
     dist = global_point - current_position()
@@ -885,6 +891,7 @@ def setup_stages():
     x_linear.disable_manual_move_tracking()
     y_linear.disable_manual_move_tracking()
 
+    move_to(V2((0.1, 0.1)), is_local = False)
 
     home_all()
 
@@ -931,8 +938,8 @@ def define_operating_constants():
            ROTARY_MIN_ANGLE, ROTARY_MAX_ANGLE, B_EMPIR, INVERT_COORDINATES
 
 
-    GLOBAL_O = V2((35.6, 39))		# ORIGIN = LASER FOCUSED ON BOTTOM LEFT CORNER
-    TR = V2((21.6, 25))			# ...TOP RIGHT CORNER
+    GLOBAL_O = V2((0, 0))		    # ORIGIN = LASER FOCUSED ON BOTTOM LEFT CORNER
+    TR = V2((0, 0))			        # ...TOP RIGHT CORNER
     LOCAL_O = V2((0, 0))
     REGION_SIZE = GLOBAL_O - TR
 

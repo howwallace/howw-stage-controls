@@ -83,7 +83,7 @@ class MappingHandler(object):
             curr_command = 0
             in_new_cmds = False
             
-            log_file = open(self.path_prefix + self.sample_name + ".txt", "r")
+            log_file = open(self.path_prefix + self.sample_name + ".txt", "r") #, encoding = "UTF8")
             
             for line in log_file.readlines():
 
@@ -104,8 +104,8 @@ class MappingHandler(object):
                             self.TR = V2((args[0], args[1]))
                             self.REGION_SIZE = self.GLOBAL_O - self.TR
                             ax.add_patch(Rectangle((0, 0), self.REGION_SIZE.x, self.REGION_SIZE.y, fill=None, alpha=1))
-                            plt.xlim(left = - 0.05 * self.REGION_SIZE.x, right = 1.05 * self.REGION_SIZE.x)
-                            plt.ylim(bottom = - 0.05 * self.REGION_SIZE.y, top = 1.05 * self.REGION_SIZE.y)
+                            plt.xlim(-0.05 * self.REGION_SIZE.x, 1.05 * self.REGION_SIZE.x)
+                            plt.ylim(-0.05 * self.REGION_SIZE.y, 1.05 * self.REGION_SIZE.y)
                             ax.xaxis.set_ticks(np.arange(0,self.REGION_SIZE.x,2))
                             ax.yaxis.set_ticks(np.arange(0,self.REGION_SIZE.y,2))
                             ax.set_aspect('equal', adjustable='box')

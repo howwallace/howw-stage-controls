@@ -6,7 +6,7 @@ from .asciiserial import AsciiSerial
 from .asciilockstep import AsciiLockstep
 from .asciilockstepinfo import AsciiLockstepInfo
 from .binarycommand import BinaryCommand
-from .binarycommand import CommandType
+#from .binarycommand import CommandType
 from .binarydevice import BinaryDevice
 from .binaryreply import BinaryReply
 from .binaryserial import BinarySerial
